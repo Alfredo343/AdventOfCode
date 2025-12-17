@@ -3,7 +3,7 @@
 ### Programación Dinámica
 Este problema corresponde con la PRIMERA parte del ejercicio 2 del Advent of Code.
 
--Seleccionamos este problema ya que debido a la técnica utilizada, mencionada en el título, era bastante adecuada.
+Seleccionamos este problema ya que debido a la técnica utilizada, mencionada en el título, era bastante adecuada.
 
 ### Explicaión General del Problema
 
