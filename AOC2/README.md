@@ -68,7 +68,13 @@ Y finalmente imprimir por pantalla el resultado con un cout:
 cout << suma << "\n";
 ```
 
+### Comentarios
 
+En un inicio, este código habíamos pensado hacerlo con divide y vencerás ya que la idea de dividir el ID para su posterior análisis nos parecía buena, pero después de implementarlo nos dimos cuenta que en realidad este método no cumplía su función ya que no reducía el código. Con una programación dinámica o con fuerza bruta se podía llegar a la misma cantidad de tiempo , por tanto, decidimos usar una memoria dinámica para almacenar de forma más segura todos los datos de los ID y así hacerlo de una forma más profesional.
+
+### Valoración del Problema
+
+Gracias a este código hemos aprendido que no siempre vas a resolverlo todo con el primer método que se te ocurre, además de la forma de implementar la memoria dinámica fuera del entorno de un examen sabiendo como hacerlo en un caso de un problema real.
 
 
 
