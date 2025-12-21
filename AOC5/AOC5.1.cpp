@@ -4,9 +4,9 @@
 #include <algorithm>
 
 using namespace std;
-
+//Comprobamos si una cadena es un numero valido
 bool isNumber(const string &s) {
-    if (s.empty()) return false;
+    if (s.empty()) return false;//esta vacia = false
     for (char c : s) {
         if (!isdigit(c) && c != '-') return false;
     }
@@ -19,28 +19,29 @@ vector<pair<long long, long long>> readRanges() {
     string line;
 
     while (getline(cin, line)) {
+        //leemos la linea
         line.erase(remove_if(line.begin(), line.end(), ::isspace), line.end());
-
+        //si esta vacia paramos
         if (line.empty())
             break;
-
+        //buscamos el guión
         size_t dash = line.find('-');
         if (dash == string::npos)
-            continue;
-
+            continue;//noi guión = linea no valida
+        //extraemos cada parte del rango
         string aStr = line.substr(0, dash);
         string bStr = line.substr(dash + 1);
-
+        //¿son numeros?
         if (!isNumber(aStr) || !isNumber(bStr))
             continue;
-
+        //pasamos de cadena a numero
         long long a = stoll(aStr);
         long long b = stoll(bStr);
-
+        //aseguramos que esten en orden
         if (a > b) swap(a, b);
         ranges.emplace_back(a, b);
     }
-
+    //ordenamos
     sort(ranges.begin(), ranges.end());
     return ranges;
 }
@@ -48,10 +49,14 @@ vector<pair<long long, long long>> readRanges() {
 // Fusiona rangos que se solapan
 vector<pair<long long, long long>> mergeRanges(const vector<pair<long long, long long>> &ranges) {
     vector<pair<long long, long long>> merged;
+    //recorremos rangos
     for (const auto &r : ranges) {
+        //no rangos o no solape
         if (merged.empty() || r.first > merged.back().second + 1) {
-            merged.push_back(r);
+            merged.push_back(r);//añadir
+        //solapa
         } else {
+            //fusionamos
             merged.back().second = max(merged.back().second, r.second);
         }
     }
@@ -62,13 +67,13 @@ vector<pair<long long, long long>> mergeRanges(const vector<pair<long long, long
 long long countFreshIDs(const vector<pair<long long, long long>> &merged) {
     long long freshCount = 0;
     string line;
-
+    //leemos IDs
     while (getline(cin, line)) {
         if (line.empty())
             continue;
-
+        //convertimos la liena a numero
         long long id = stoll(line);
-
+        //buscamos de forma binaria para saber si el ID es algun rango
         int left = 0, right = (int)merged.size() - 1;
         bool fresh = false;
 
@@ -79,11 +84,12 @@ long long countFreshIDs(const vector<pair<long long, long long>> &merged) {
             } else if (id > merged[mid].second) {
                 left = mid + 1;
             } else {
+                //ID dentro de rango
                 fresh = true;
                 break;
             }
         }
-
+        //pertenece a un rango, le añadimos 1
         if (fresh)
             freshCount++;
     }
@@ -95,11 +101,12 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    auto ranges = readRanges();
-    auto merged = mergeRanges(ranges);
-    long long freshCount = countFreshIDs(merged);
+    auto ranges = readRanges(); //leemos rangoa que entran
+    auto merged = mergeRanges(ranges); //guarda los rangos fusionados
+    long long freshCount = countFreshIDs(merged); //guarda la cantidad de alimentos frescos
 
     cout << freshCount << "\n";
 
     return 0;
 }
+
